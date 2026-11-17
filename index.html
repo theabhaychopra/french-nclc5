@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAF7">
+<title>Français · NCLC 5 in 12 weeks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAFAF7;--card:#FFFFFF;--ink:#141414;--muted:#7A7A75;--line:#E8E7E1;--accent:#2B50D9;--accent-soft:#E8EDFC;--done:#141414;--warn:#C2410C;--ok:#15803D;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);--sl:env(safe-area-inset-left,0px);--sr:env(safe-area-inset-right,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#111110;--card:#1A1A19;--ink:#EDEDEA;--muted:#8C8C86;--line:#2A2A28;--accent:#7C96F5;--accent-soft:#1E2440;--done:#EDEDEA;--warn:#FB923C;--ok:#4ADE80}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{padding-bottom:calc(76px + var(--sb))}
+a{color:inherit}
+button{font-family:inherit}
+.wrap{max-width:600px;margin:0 auto;padding:calc(16px + var(--st)) calc(16px + var(--sr)) 24px calc(16px + var(--sl))}
+
+/* header */
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h1{font:400 30px/1.05 "Instrument Serif",serif;margin:0}
+h1 em{color:var(--accent)}
+.hbtns{display:flex;gap:6px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;cursor:pointer}
+.pill.en-on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.synced{background:var(--ok)}.dot.saving,.dot.connecting{background:var(--accent)}.dot.offline,.dot.readonly{background:var(--warn)}
+.meta{color:var(--muted);font-size:14px;margin-top:6px}
+.meta b{color:var(--ink);font-weight:600}
+h2{font:500 12px/1 Inter;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:28px 0 12px}
+.view{display:none}.view.on{display:block}
+
+/* French + English */
+.fr{text-decoration:underline dotted var(--muted);text-decoration-thickness:1px;text-underline-offset:4px;cursor:help;position:relative}
+.fr:hover::after,.fr.tap::after{content:attr(data-en);position:absolute;left:0;top:calc(100% + 6px);z-index:30;background:var(--ink);color:var(--bg);font:400 13px/1.4 Inter,sans-serif;padding:7px 10px;border-radius:8px;width:max-content;max-width:min(320px,78vw);white-space:normal;pointer-events:none;text-align:left;letter-spacing:0;text-transform:none}
+@media (hover:none){.fr:hover::after{display:none}.fr.tap::after{display:block}}
+body.en .fr{text-decoration:none;cursor:default}
+body.en .fr::after{content:attr(data-en)!important;display:block!important;position:static!important;background:none!important;color:var(--muted)!important;padding:2px 0 0!important;font:400 13px/1.4 Inter,sans-serif!important;max-width:none!important;width:auto!important}
+
+/* today */
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:18px}
+@media (min-width:640px){.strip{grid-template-columns:repeat(12,1fr)}}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.d{aspect-ratio:1;border-radius:2px;background:var(--line)}
+.d.part{background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.d.full{background:var(--done)}
+.d.today{outline:2px solid var(--accent);outline-offset:1px}
+.d.test{background:var(--warn)}
+.legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.focus{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:18px}
+.focus small{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em}
+.focus p{margin:4px 0 0;font-size:15.5px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.item{display:flex;gap:12px;align-items:flex-start;padding:14px;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.cb{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:1.5px solid var(--muted);border-radius:8px;margin:0;flex:none;cursor:pointer;display:grid;place-items:center;background:none}
+.cb:checked{background:var(--done);border-color:var(--done)}
+.cb:checked::after{content:"";width:11px;height:6px;border:2.5px solid var(--bg);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.item .body{flex:1;min-width:0}
+.item .t{font-weight:500;font-size:15.5px;line-height:1.35}
+.item .min{font-weight:400;color:var(--muted);font-size:13px;margin-left:6px;white-space:nowrap}
+.item .opt{font-size:11px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+.item.checked .t{text-decoration:line-through;color:var(--muted)}
+.item .n{color:var(--muted);font-size:13.5px;margin-top:3px}
+.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;min-height:34px;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;background:var(--bg);cursor:pointer;color:var(--ink)}
+.chip.tool{border-color:var(--accent);color:var(--accent)}
+.total{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:10px}
+
+/* controls */
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;background:var(--card)}
+.seg button{flex:1;border:0;background:none;padding:9px 6px;border-radius:9px;font:500 13.5px Inter;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.seg.small button{font-size:12.5px;padding:8px 4px}
+.sub{color:var(--muted);font-size:13.5px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{flex:1;min-height:46px;font:500 14.5px Inter;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn small{display:block;font-size:11px;font-weight:400;opacity:.65}
+.btn.wide{flex-basis:100%}
+.prompt{font:400 23px/1.3 "Instrument Serif",serif;margin:18px 0 6px}
+.say{background:var(--card);border:1px solid var(--line);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:15px;color:var(--ink);vertical-align:middle}
+.timer{font:500 44px/1 Inter;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:18px}
+.timer.over{color:var(--warn)}
+.bar{height:4px;background:var(--line);border-radius:3px;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s linear}
+textarea,input[type=text],input[type=date]{font:16px/1.5 Inter;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
+textarea{min-height:200px;margin-top:14px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.wc{font-size:13px;color:var(--muted);margin-top:6px}
+.wc.ok{color:var(--accent)}.wc.bad{color:var(--warn)}
+.phr{display:grid;gap:12px}
+@media (min-width:560px){.phr{grid-template-columns:1fr 1fr}}
+.grp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.grp h3{margin:0 0 6px;font:500 11.5px Inter;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.grp button{display:block;width:100%;text-align:left;background:none;border:0;padding:7px 0;font:15px Inter;color:var(--ink);cursor:pointer;border-top:1px solid var(--line)}
+.grp h3+button{border-top:0}
+
+/* flashcards */
+.fc-card{background:var(--card);border:1px solid var(--line);border-radius:20px;min-height:min(52vh,360px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 18px;margin-top:12px;gap:12px;cursor:pointer;user-select:none}
+.fc-front{font:400 42px/1.15 "Instrument Serif",serif;word-break:break-word}
+.fc-back{font-size:19px;color:var(--accent);min-height:28px}
+.fc-done{font:400 28px/1.3 "Instrument Serif",serif}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
+.grades .btn{padding:8px 4px;font-size:14px}
+.kbd{font-size:12px;color:var(--muted);margin-top:12px;text-align:center}
+@media (hover:none){.kbd{display:none}}
+
+/* exam */
+.lead{font-size:15.5px;margin:16px 0 0}
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:3px}
+.box small{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.box b{font:400 26px/1.1 "Instrument Serif",serif}
+.box span{font-size:13px;color:var(--muted)}
+.tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th,.tbl td{padding:9px 10px;text-align:left;border-top:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl th{font-weight:500;color:var(--muted);font-size:12px;border-top:0}
+.tbl tr.hl td{background:var(--accent-soft)}
+.tasks{display:grid;gap:8px}
+.tasks div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14.5px}
+.steps,.check{margin:0;padding-left:20px;display:grid;gap:10px;font-size:15px}
+.check{list-style:none;padding:0}
+.check li{padding-left:22px;position:relative}
+.check li::before{content:"○";position:absolute;left:0;color:var(--muted)}
+
+/* bottom nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px calc(8px + var(--sr)) calc(6px + var(--sb)) calc(8px + var(--sl))}
+.nav-in{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;text-decoration:none;color:var(--muted);font:500 11px Inter}
+.nav a.on{color:var(--ink)}
+.nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:relative}
+.badge[data-n]::after{content:attr(data-n);position:absolute;top:-4px;right:-10px;background:var(--accent);color:#fff;font:600 10px/16px Inter;min-width:16px;height:16px;border-radius:8px;padding:0 4px;text-align:center}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:50;display:none}
+.scrim.on{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-radius:20px 20px 0 0;padding:18px calc(18px + var(--sr)) calc(22px + var(--sb)) calc(18px + var(--sl));max-height:88vh;overflow:auto;transform:translateY(105%);transition:transform .25s ease}
+.sheet.on{transform:none}
+.sheet-in{max-width:600px;margin:0 auto;display:grid;gap:14px}
+.sheet h3{margin:0;font:400 26px/1.1 "Instrument Serif",serif}
+.sheet label{display:grid;gap:5px;font-size:13px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.syncbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;display:grid;gap:8px}
+.syncbox .st{display:flex;align-items:center;gap:8px;font-weight:500}
+.toast{position:fixed;left:50%;bottom:calc(86px + var(--sb));transform:translate(-50%,10px);opacity:0;background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:10px;font-size:13.5px;transition:.2s;pointer-events:none;z-index:80;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.foot{margin-top:28px;font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <h1>Français, <em>NCLC 5</em></h1>
+    <div class="hbtns">
+      <button class="pill" id="enBtn" title="Show English under every French line">EN</button>
+      <button class="pill" id="setBtn" aria-label="Settings and sync"><span class="dot" id="syncDot"></span>⚙</button>
+    </div>
+  </div>
+  <div class="meta" id="meta"></div>
+
+  <!-- TODAY -->
+  <section class="view" id="v-today">
+    <div class="strip" id="strip"></div>
+    <div class="legend"><span>Week 1</span><span>■ done · ▢ partial · <span style="color:var(--warn)">■</span> test</span><span>Week 12</span></div>
+    <div class="focus" id="focus"></div>
+    <h2 id="todayH">Today</h2>
+    <div class="list" id="list"></div>
+    <div class="total" id="total"></div>
+    <div class="foot">Tap any dotted French text for the English, or turn on <b>EN</b> to see it all. Your progress saves automatically. Tap ⚙ to see sync status.</div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="view" id="v-cards">
+    <h2>Flashcards</h2>
+    <div class="sub" id="fcStats"></div>
+    <div class="fc-card" id="fcCard"></div>
+    <div id="fcBtns"></div>
+    <div class="kbd">Keyboard: <b>space</b> flip · <b>1–4</b> grade · <b>s</b> hear it</div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section class="view" id="v-practice">
+    <h2>Practice</h2>
+    <div class="seg" id="pSeg">
+      <button data-p="speak" class="on">Speaking</button>
+      <button data-p="write">Writing</button>
+      <button data-p="phr">Phrases</button>
+    </div>
+
+    <div id="p-speak" style="margin-top:14px">
+      <div class="seg small" id="sTask">
+        <button data-t="1" class="on">1 · Interview</button>
+        <button data-t="2">2 · Role-play</button>
+        <button data-t="3">3 · Opinion</button>
+      </div>
+      <div class="prompt"><span id="sPrompt"></span> <button class="say" id="sSay" aria-label="Hear it">🔊</button></div>
+      <div class="sub" id="sSub"></div>
+      <div class="timer" id="sTimer">0:00</div>
+      <div class="bar"><i id="sBar"></i></div>
+      <div class="row">
+        <button class="btn primary" id="sStart">Start</button>
+        <button class="btn" id="sReset">Reset</button>
+        <button class="btn" id="sNew">New prompt</button>
+        <button class="btn wide" id="sCopy">Copy examiner prompt → Claude voice</button>
+      </div>
+      <div class="sub" style="margin-top:10px">Record yourself on your phone while the timer runs, then play it back once.</div>
+    </div>
+
+    <div id="p-write" style="margin-top:14px" hidden>
+      <div class="seg small" id="wTask">
+        <button data-t="1" class="on">1 · Message</button>
+        <button data-t="2">2 · Story</button>
+        <button data-t="3">3 · Argument</button>
+      </div>
+      <div class="prompt" id="wPrompt"></div>
+      <div class="sub" id="wSub"></div>
+      <textarea id="wText" placeholder="Écrivez ici… (Write here…)" spellcheck="false" autocapitalize="sentences"></textarea>
+      <div class="wc" id="wc"></div>
+      <div class="timer" id="wTimer">0:00</div>
+      <div class="bar"><i id="wBar"></i></div>
+      <div class="row">
+        <button class="btn primary" id="wStart">Start</button>
+        <button class="btn" id="wReset">Reset</button>
+        <button class="btn" id="wNew">New prompt</button>
+        <button class="btn wide" id="wCopy">Copy for correction → Claude</button>
+      </div>
+    </div>
+
+    <div id="p-phr" style="margin-top:14px" hidden>
+      <div class="sub" style="margin-bottom:12px">Tap for English. Tap again to copy the French.</div>
+      <div class="phr" id="phr"></div>
+    </div>
+  </section>
+
+  <!-- EXAM -->
+  <section class="view" id="v-exam">
+    <h2>The exam</h2>
+    <p class="lead">What the TCF Canada is, what score you need, and how to book and sit it. Fees and dates are set by each test centre, so always confirm on the centre's site.</p>
+
+    <h2>At a glance</h2>
+    <div class="grid4">
+      <div class="box"><small>1 · Listening</small><b>35 min</b><span>39 multiple-choice questions. Audio plays once. Questions get harder as you go.</span></div>
+      <div class="box"><small>2 · Reading</small><b>60 min</b><span>39 multiple-choice questions on short texts: signs, emails, articles. Harder as you go.</span></div>
+      <div class="box"><small>3 · Writing</small><b>60 min</b><span>3 tasks: a short message, a story or experience, and an argument comparing two opinions.</span></div>
+      <div class="box"><small>4 · Speaking</small><b>12 min</b><span>Face to face with an examiner, 3 tasks: an interview, a role-play where you ask the questions, and an opinion.</span></div>
+    </div>
+    <p class="sub" style="margin-top:10px">About 2 h 47 in total, usually in one day. Most centres run listening, reading and writing on a computer.</p>
+
+    <h2>Score you need for NCLC 5</h2>
+    <div class="tblw"><table class="tbl">
+      <thead><tr><th></th><th>Listening</th><th>Reading</th><th>Writing</th><th>Speaking</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td><b>NCLC 5</b> (your target)</td><td>369–397 / 699</td><td>375–405 / 699</td><td>6 / 20</td><td>6 / 20</td></tr>
+        <tr><td>NCLC 6</td><td>398–457</td><td>406–452</td><td>7–9</td><td>7–9</td></tr>
+        <tr><td>NCLC 7</td><td>458–502</td><td>453–498</td><td>10–11</td><td>10–11</td></tr>
+        <tr><td>NCLC 4 (not enough)</td><td>331–368</td><td>342–374</td><td>4–5</td><td>4–5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="sub" style="margin-top:10px">Your NCLC level is set by your <b>lowest</b> skill. A 6 in writing with a 5 in speaking is NCLC 5. Source: IRCC's TCF Canada equivalency table.</p>
+
+    <h2>What each task wants</h2>
+    <div class="tasks">
+      <div><b>Writing 1 · Message (60–120 words).</b> Invite, ask, complain or explain to a friend, neighbour or colleague. Greeting, purpose, 2–3 details, closing.</div>
+      <div><b>Writing 2 · Experience (120–150 words).</b> Tell what happened (passé composé), describe it (imparfait), give your opinion.</div>
+      <div><b>Writing 3 · Argument (120–180 words).</b> Two short documents disagree. Summarise both (40–60 words), then give your view with reasons (80–120 words).</div>
+      <div><b>Speaking 1 · Interview (2 min).</b> The examiner asks about you: work, city, hobbies, plans. Your memorised self-intro covers most of it.</div>
+      <div><b>Speaking 2 · Role-play (5 min 30, incl. 2 min prep).</b> You get a situation and <i>you</i> ask the questions. Ask lots of varied questions.</div>
+      <div><b>Speaking 3 · Opinion (4 min 30).</b> A question like "Is remote work good?" Give your view, two reasons, an example and a counterpoint.</div>
+    </div>
+
+    <h2>How to book (Hamilton area)</h2>
+    <ol class="steps">
+      <li><b>Pick a centre.</b> Alliance Française de Toronto runs the TCF Canada at Spadina, North York, Mississauga and Oakville. Oakville and Mississauga are the closest to Hamilton. Alliance Française d'Ottawa also runs it.</li>
+      <li><b>Watch for registration to open.</b> At Alliance Française de Toronto, a session's registration usually opens about a month before the test, and seats are limited. Check their exams page now so you know your target session.</li>
+      <li><b>Register and pay online.</b> About CAD $390 at Alliance Française de Toronto. Fees are generally not refundable, and changing your date costs extra.</li>
+      <li><b>Register with the ID you will bring.</b> Use your passport, with your name exactly as it appears on it.</li>
+      <li><b>Wait for the confirmation</b> (the "convocation"), which tells you the time and room.</li>
+    </ol>
+    <div class="row">
+      <a class="chip" href="https://www.alliance-francaise.ca/" target="_blank" rel="noopener">Alliance Française de Toronto ↗</a>
+      <a class="chip" href="https://www.afottawa.ca/" target="_blank" rel="noopener">Alliance Française d'Ottawa ↗</a>
+      <a class="chip" href="https://www.france-education-international.fr/centres-d-examen/carte" target="_blank" rel="noopener">All approved centres ↗</a>
+      <a class="chip" href="https://www.france-education-international.fr/test/exemples-epreuves-tcf?langue=en" target="_blank" rel="noopener">Official sample questions ↗</a>
+    </div>
+
+    <h2>Test day</h2>
+    <ul class="check">
+      <li>Bring your <b>original, valid photo ID</b>: the same one you registered with. No photocopies.</li>
+      <li>Arrive 30 minutes early. They check your ID and take your photo, which goes on your certificate.</li>
+      <li>Your phone stays off and put away for the whole test.</li>
+      <li>Bring water and a snack. It is almost 3 hours with breaks.</li>
+      <li>In speaking: speak slowly, use your templates, and if you are stuck say <span class="fr" data-en="How do I say…?">« Comment dire… ? »</span> and keep going.</li>
+    </ul>
+
+    <h2>After the test</h2>
+    <ul class="check">
+      <li>Results usually arrive in about 2–3 weeks as a PDF certificate (the <span class="fr" data-en="statement of results">attestation de résultats</span>).</li>
+      <li>Results are valid for <b>2 years</b>. IRCC refuses applications with expired results.</li>
+      <li>You can retake it as often as you want, but there is a waiting period between attempts (about 3–4 weeks). Check the current rule with your centre.</li>
+      <li>On IRCC forms, enter your NCLC levels using the table above.</li>
+    </ul>
+  
+  </section>
+</div>
+
+<nav class="nav"><div class="nav-in">
+  <a href="#today" data-v="today"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8 12.5l2.8 2.8L16.5 9"/></svg>Today</a>
+  <a href="#cards" data-v="cards"><span class="badge" id="cardBadge"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="13" height="15" rx="3"/><path d="M8 3h9a3 3 0 0 1 3 3v11"/></svg></span>Cards</a>
+  <a href="#practice" data-v="practice"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>Practice</a>
+  <a href="#exam" data-v="exam"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Exam</a>
+</div></nav>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet"><div class="sheet-in">
+  <h3>Settings</h3>
+  <div class="syncbox">
+    <div class="st"><span class="dot" id="syncDot2"></span><span id="syncTxt">Checking…</span></div>
+    <div class="sub" id="syncHelp"></div>
+    <div id="sbBox" hidden>
+      <div id="sbOff">
+        <div class="row" style="margin-top:4px"><button class="btn primary" id="sbOn">Turn on sync (first device)</button></div>
+        <label style="margin-top:12px">Already have a sync key from another device?<input type="text" id="sbKeyIn" placeholder="XXXX-XXXX-XXXX-XXXX" autocapitalize="characters" autocomplete="off" spellcheck="false"></label>
+        <div class="row" style="margin-top:8px"><button class="btn" id="sbJoin">Use this key</button></div>
+      </div>
+      <div id="sbOnBox" hidden>
+        <div class="sub">Your sync key. Keep it private: anyone with it can see and change your progress.</div>
+        <div style="font:600 18px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.04em;margin:6px 0" id="sbKeyShow"></div>
+        <div class="row" style="margin-top:4px">
+          <button class="btn primary" id="sbLink">Copy sync link for my other device</button>
+          <button class="btn" id="sbOut">Stop syncing on this device</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="two">
+    <label>Your first name<input type="text" id="nameIn" placeholder="e.g. Priya" autocomplete="given-name"></label>
+    <label>Your city<input type="text" id="cityIn" placeholder="e.g. Hamilton"></label>
+  </div>
+  <div class="two">
+    <label>Start date<input type="date" id="startIn"></label>
+    <label>Test date<input type="date" id="testIn"></label>
+  </div>
+  <div class="syncbox">
+    <b style="font-weight:500">Move progress by hand</b>
+    <div class="sub">Backup, or for a device that can't sync: copy your code here, then paste it on the other device.</div>
+    <div class="row" style="margin-top:0"><button class="btn" id="expBtn">Copy my progress code</button></div>
+    <textarea id="impText" style="min-height:70px;margin-top:0" placeholder="Paste a progress code here"></textarea>
+    <div class="row" style="margin-top:0"><button class="btn" id="impBtn">Load pasted code</button></div>
+  </div>
+  <button class="btn primary" id="closeSheet">Done</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const DAY=86400000;
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*60000);return z.toISOString().slice(0,10)};
+const parse=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const today0=()=>{const n=new Date();n.setHours(0,0,0,0);return n};
+const fmtDate=d=>d.toLocaleDateString('en-CA',{month:'short',day:'numeric'});
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const fr=(f,e)=>'<span class="fr" data-en="'+esc(e)+'">'+esc(f)+'</span>';
+const clone=o=>JSON.parse(JSON.stringify(o));
+
+/* ================= state + sync ================= */
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function fresh(){const t=today0();return{v:1,updatedAt:0,start:iso(t),test:iso(new Date(t.getTime()+83*DAY)),en:false,prof:{name:'',city:''},checks:{},srs:{},newc:{},drafts:{1:'',2:'',3:''}}}
+function load(){
+  const raw=lsGet('fr:state');
+  if(raw){try{return Object.assign(fresh(),JSON.parse(raw))}catch(e){}}
+  // migrate from the earlier version of this page
+  const g=(k,d)=>{const v=lsGet('fr:'+k);try{return v==null?d:JSON.parse(v)}catch(e){return d}};
+  const s=fresh();
+  if(lsGet('fr:start')==null&&lsGet('fr:srs')==null)return s;
+  s.start=g('start',s.start);s.test=g('test',s.test);s.en=g('en',false);s.prof=g('prof',s.prof);s.srs=g('srs',{});
+  s.drafts={1:g('draft1',''),2:g('draft2',''),3:g('draft3','')};
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);
+    if(k.startsWith('fr:c:'))s.checks[k.slice(5)]=JSON.parse(localStorage.getItem(k));
+    if(k.startsWith('fr:new:'))s.newc[k.slice(7)]=JSON.parse(localStorage.getItem(k));}}catch(e){}
+  s.updatedAt=1;return s;
+}
+let S=load();
+const hasProgress=s=>Object.keys(s.checks||{}).length>0||Object.keys(s.srs||{}).length>0;
+function save(){S.updatedAt=Date.now();lsSet('fr:state',JSON.stringify(S));queueRemote()}
+
+let webMode=false,remoteRef=null,canWrite=true,writing=false,dirty=false,wTimerId=null,syncState='local';
+const SYNC={
+  local:['Saved on this device only','Open this page from claude.ai while signed in to sync across your devices. Or move progress by hand below.'],
+  connecting:['Connecting…','Looking for your saved progress.'],
+  synced:['Synced to your Claude account','Open this same link on any device where you\'re signed in to Claude and your progress follows you.'],
+  saving:['Saving…','Your progress is being saved to your Claude account.'],
+  offline:['Can\'t reach sync right now','Your progress is safe on this device and will sync when the connection is back.'],
+  readonly:['Sync is view-only for you','Ask the owner to share this page with you as an Editor so your progress can sync. Until then it saves on this device.'],
+  weblocal:['Saved on this device only','Turn on sync to use your progress on your phone and laptop. No account needed.'],
+  websynced:['Synced across your devices','Open your sync link on any other device and your progress follows you.']
+};
+const SB_URL='https://hpmffaphmqbbtyyioiua.supabase.co',SB_KEY='sb_publishable_cvKzZXVkOr-Oot4Wm5MtQw_NRsioVPt';
+const sbReady=()=>/^https:\/\//.test(SB_URL)&&SB_KEY.indexOf('__')!==0;
+function setSync(st){if(webMode&&st==='synced')st='websynced';if(webMode&&st==='local')st='weblocal';syncState=st;const dc=st==='websynced'?'synced':st==='weblocal'?'local':st;['syncDot','syncDot2'].forEach(id=>{$(id).className='dot '+dc});$('syncTxt').textContent=SYNC[st][0];$('syncHelp').textContent=SYNC[st][1]}
+function queueRemote(){if(!remoteRef||!canWrite)return;clearTimeout(wTimerId);wTimerId=setTimeout(flush,1200)}
+async function flush(){
+  if(!remoteRef||!canWrite)return;
+  if(writing){dirty=true;return}
+  writing=true;setSync('saving');
+  try{if(remoteRef.web)await webPush();else await remoteRef.set(clone(S));setSync('synced')}
+  catch(e){const c=e&&e.code;
+    if(c==='invalid_argument'){canWrite=false;setSync('readonly')}
+    else if(c==='revoked'||c==='not_granted'||c==='capability_disabled'||c==='capability_removed'){remoteRef=null;setSync('local')}
+    else{setSync('offline');setTimeout(queueRemote,4000)}}
+  writing=false;if(dirty){dirty=false;flush()}
+}
+async function initSync(){
+  if(!window.claude||typeof window.claude.use!=='function'){initWeb();return}
+  setSync('connecting');
+  try{
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    if(!db||!user){setSync('local');return}
+    const id=await user.id();
+    if(!id){setSync('local');return}
+    remoteRef=db.doc('data/users/'+id+'/progress');
+    let to=setTimeout(()=>{if(syncState==='connecting')setSync('offline')},10000);
+    remoteRef.onSnapshot(snap=>{
+      if(snap.exists){
+        const r=snap.data()||{};
+        if((r.updatedAt||0)>(S.updatedAt||0)){S=Object.assign(fresh(),clone(r));lsSet('fr:state',JSON.stringify(S));applyAll()}
+        else if((S.updatedAt||0)>(r.updatedAt||0)&&!snap.metadata.hasPendingWrites)queueRemote();
+      } else if(!snap.metadata.fromCache&&hasProgress(S)){queueRemote()}
+      if(!snap.metadata.fromCache){clearTimeout(to);if(syncState==='connecting'||syncState==='offline')setSync('synced')}
+    },e=>{clearTimeout(to);remoteRef=null;setSync(e&&e.code==='unavailable'?'offline':'local')});
+  }catch(e){setSync('local')}
+}
+
+
+/* ---- website sync (Supabase, keyed by a private sync key) ---- */
+function sbCall(fn,body){
+  const h={'apikey':SB_KEY,'Content-Type':'application/json'};if(!/^sb_/.test(SB_KEY))h.Authorization='Bearer '+SB_KEY;
+  return fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(body)}).then(r=>{if(!r.ok)throw new Error('http '+r.status);return r.json()})
+}
+const getKey=()=>lsGet('fr:synckey')||'';
+function newKey(){const a='ABCDEFGHJKMNPQRSTUVWXYZ23456789',b=new Uint8Array(16);crypto.getRandomValues(b);
+  let k='';b.forEach((x,i)=>{k+=a[x%a.length];if(i%4===3&&i<15)k+='-'});return k}
+const normKey=k=>k.toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/(.{4})(?=.)/g,'$1-');
+function webUI(){$('sbBox').hidden=!sbReady();const k=getKey();$('sbOff').hidden=!!k;$('sbOnBox').hidden=!k;$('sbKeyShow').textContent=k}
+async function webPull(adoptRemote){
+  const k=getKey();if(!k)return;
+  try{const r=await sbCall('fr_get',{p_key:k});
+    if(r&&r.data){if(adoptRemote||(r.updated_at||0)>(S.updatedAt||0)){S=Object.assign(fresh(),r.data);S.updatedAt=r.updated_at;lsSet('fr:state',JSON.stringify(S));applyAll()}
+      else if((S.updatedAt||0)>(r.updated_at||0))queueRemote()}
+    else if(hasProgress(S)||adoptRemote===false)queueRemote();
+    setSync('synced')}catch(e){setSync('offline')}
+}
+async function webPush(){
+  const k=getKey();if(!k)return;
+  await sbCall('fr_save',{p_key:k,p_data:clone(S),p_updated:S.updatedAt});
+}
+function initWeb(){
+  webMode=true;webUI();
+  if(!sbReady()){setSync('local');$('sbBox').hidden=true;return}
+  // a sync link looks like  …/?k=XXXX-XXXX-XXXX-XXXX
+  try{const u=new URL(location.href),k=u.searchParams.get('k');
+    if(k){const nk=normKey(k);if(nk.length===19){lsSet('fr:synckey',nk);u.searchParams.delete('k');history.replaceState(null,'',u.pathname+u.search+u.hash);webUI();setSync('connecting');webPull(true).then(()=>toast('Synced ✓ This device now shares your progress'));return}}}catch(e){}
+  if(getKey()){remoteRef={web:true};setSync('connecting');webPull(false)}else setSync('local');
+}
+$('sbOn').onclick=()=>{lsSet('fr:synckey',newKey());remoteRef={web:true};webUI();S.updatedAt=Math.max(S.updatedAt,1);queueRemote();flush();toast('Sync is on. Now copy your sync link to your other device.')};
+$('sbJoin').onclick=()=>{const nk=normKey($('sbKeyIn').value);if(nk.length!==19){toast('A key looks like XXXX-XXXX-XXXX-XXXX');return}
+  lsSet('fr:synckey',nk);remoteRef={web:true};webUI();setSync('connecting');webPull(true)};
+$('sbLink').onclick=()=>{const u=new URL(location.href);u.hash='';u.search='?k='+getKey();copy(u.toString(),'Sync link copied. Open it on your other device.')};
+$('sbOut').onclick=()=>{try{localStorage.removeItem('fr:synckey')}catch(e){}remoteRef=null;webUI();setSync('local');toast('Sync is off on this device. Your progress stays here.')};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&webMode&&getKey())webPull(false)});
+
+/* ================= UI basics ================= */
+let tt;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1900)}
+function copy(text,msg){
+  const fallback=()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();toast(ok?msg:'Copy was blocked. Select the text manually.')};
+  try{navigator.clipboard.writeText(text).then(()=>toast(msg),fallback)}catch(e){fallback()}
+}
+const hoverless=()=>{try{return matchMedia('(hover:none)').matches}catch(e){return false}};
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.fr');
+  document.querySelectorAll('.fr.tap').forEach(x=>{if(x!==t)x.classList.remove('tap')});
+  if(t&&!S.en&&hoverless()&&!t.closest('.grp'))t.classList.toggle('tap');
+});
+function applyEn(){document.body.classList.toggle('en',!!S.en);$('enBtn').classList.toggle('en-on',!!S.en)}
+$('enBtn').onclick=()=>{S.en=!S.en;applyEn();save()};
+
+/* sheet */
+function openSheet(on){$('sheet').classList.toggle('on',on);$('scrim').classList.toggle('on',on)}
+$('setBtn').onclick=()=>openSheet(true);$('scrim').onclick=()=>openSheet(false);$('closeSheet').onclick=()=>openSheet(false);
+function fillSettings(){$('nameIn').value=S.prof.name||'';$('cityIn').value=S.prof.city||'';$('startIn').value=S.start;$('testIn').value=S.test}
+['nameIn','cityIn'].forEach(id=>$(id).addEventListener('input',()=>{S.prof={name:$('nameIn').value.trim(),city:$('cityIn').value.trim()};buildPhr();save()}));
+$('startIn').onchange=e=>{if(e.target.value){S.start=e.target.value;save();render()}};
+$('testIn').onchange=e=>{if(e.target.value){S.test=e.target.value;save();render()}};
+$('expBtn').onclick=()=>{try{copy('FR5:'+btoa(unescape(encodeURIComponent(JSON.stringify(S)))),'Progress code copied. Paste it somewhere safe or on your other device.')}catch(e){toast('Could not create the code')}};
+$('impBtn').onclick=()=>{
+  const v=$('impText').value.trim();
+  try{if(!v.startsWith('FR5:'))throw 0;const r=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!r||typeof r!=='object'||!r.checks)throw 0;
+    S=Object.assign(fresh(),r);save();applyAll();$('impText').value='';toast('Progress loaded ✓')}
+  catch(e){toast('That code doesn\'t look right. Copy it again.')}
+};
+
+/* routing */
+const VIEWS=['today','cards','practice','exam'];
+function route(){let v=location.hash.slice(1);if(!VIEWS.includes(v))v='today';
+  VIEWS.forEach(x=>$('v-'+x).classList.toggle('on',x===v));
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  if(v==='cards')fcStart();
+}
+window.addEventListener('hashchange',()=>{route();window.scrollTo(0,0)});
+function go(v){if(location.hash!=='#'+v)location.hash=v;else route()}
+
+/* ================= plan ================= */
+const L={
+  duo:{label:'Duolingo',url:'https://www.duolingo.com/'},
+  kwiziq:{label:'Kwiziq',url:'https://french.kwiziq.com/'},
+  tv5:{label:'TV5Monde Apprendre',url:'https://apprendre.tv5monde.com/fr'},
+  tv5tcf:{label:'TV5Monde TCF practice',url:'https://www.tv5monde.com/tcf'},
+  rfi:{label:'RFI Français facile',url:'https://francaisfacile.rfi.fr/fr/'},
+  easy:{label:'Easy French',url:'https://www.youtube.com/@EasyFrench'},
+  cbf:{label:'Coffee Break French',url:'https://coffeebreaklanguages.com/coffeebreakfrench/'},
+  italki:{label:'italki tutors',url:'https://www.italki.com/en/teachers/french'},
+  fei:{label:'Official TCF samples',url:'https://www.france-education-international.fr/test/exemples-epreuves-tcf?langue=en'},
+  centres:{label:'All test centres',url:'https://www.france-education-international.fr/centres-d-examen/carte'},
+  claude:{label:'Claude',url:'https://claude.ai/new'},
+  aft:{label:'Alliance Française Toronto',url:'https://www.alliance-francaise.ca/'}
+};
+const FOCUS=[
+  'Sounds and greetings. être (to be) and avoir (to have). Numbers 1–10 and days of the week.',
+  'Asking questions, numbers to 100, telling the time. Food and places. Saying "not": ne… pas.',
+  'Everyday verbs in the present: aller (go), faire (do), vouloir (want), pouvoir (can). Work and routine words.',
+  'Past tense with avoir (j\'ai mangé = I ate) and near future (je vais manger = I\'m going to eat). Untimed baseline test at the end of the week.',
+  'Past tense with être (je suis allé = I went) and imparfait (was / used to). Start tutor sessions. Lock in your Task 1 self-intro.',
+  'Pronouns le / la / lui / y / en (it, him/her, there, some). Build your Task 2 question bank.',
+  'Opinion words and comparisons (plus… que = more… than). Task 3 speaking and writing structure.',
+  'Polite requests: je voudrais (I would like), pourriez-vous (could you). First timed reading and listening sections.',
+  'Mock test #1 on Sunday. Find your weakest skill and attack it.',
+  'Mock test #2. Writing under time pressure every day.',
+  'Mock test #3. Speaking under pressure: record every day.',
+  'Light week. Review templates, phrases and flashcards only. Sleep. Test day.'
+];
+const PHASE=['Foundation','Test-shaped learning','Exam mode'];
+function listenFor(day,wk){
+  if(wk<=2)return{links:[L.cbf],n:'Coffee Break French, Season 1, from episode 1. Made for total beginners.'};
+  if(wk<=4)return day%2?{links:[L.cbf],n:'Next Coffee Break French episode.'}:{links:[L.easy],n:'Easy French: search the channel for "Super Easy French".'};
+  return[{links:[L.rfi],n:'RFI news in easy French. Listen first, then read the transcript.'},{links:[L.easy],n:'Easy French street interviews, French subtitles on.'},{links:[L.cbf],n:'Coffee Break French, next episode.'}][day%3];
+}
+function itemsFor(day,date){
+  const wk=Math.ceil(day/7),ph=wk<=4?0:wk<=8?1:2,dow=date.getDay(),lis=listenFor(day,wk),it=[];
+  if(day===1)it.push({id:'book',t:'Pick your test session',min:10,n:'Find a session around week 12–13 and note when its registration opens (usually ~1 month before). See the Exam tab.',links:[L.aft,L.centres]});
+  if(day===56)it.push({id:'book2',t:'Check registration is open, then book',min:15,n:'About CAD $390 at Alliance Française de Toronto. Register with your passport.',links:[L.aft]});
+  if(ph===0){
+    const nNew=wk<=2?10:15;
+    it.push({id:'cards',t:'Flashcards: '+nNew+' new words + reviews',min:wk<=2?10:15,n:'Tap 🔊 and say each word out loud.',links:[],tool:['cards']});
+    if(wk<=3)it.push({id:'duo',opt:true,t:'Duolingo',min:10,n:'Warm-up only. Skip it if you are short on time.',links:[L.duo]});
+    if(wk>=2)it.push({id:'gram',t:'Grammar',min:wk===2?15:25,n:FOCUS[wk-1].split('.')[0]+'.',links:[L.kwiziq]});
+    it.push({id:'lesson',t:'One beginner lesson',min:wk<=2?20:30,n:'TV5Monde Apprendre, level A1. One lesson, start to finish.',links:[L.tv5]});
+    it.push({id:'listen',t:'Listening',min:wk<=2?20:30,n:lis.n,links:lis.links});
+    if(wk===1)it.push({id:'speak',t:'Say your 3-line intro out loud',min:5,n:'Je m\'appelle… / J\'habite à… / Je travaille… Add your name and city under ⚙ first.',links:[],tool:['phr']});
+    else it.push({id:'speak',t:'Speak out loud',min:wk===2?10:15,n:'A Task 1 prompt on the timer. Mistakes are fine.',links:[],tool:['speak',1]});
+    if(wk>=3)it.push({id:'write',t:'Write 5–8 short sentences',min:15,n:'About your day. Simple is fine.',links:[],tool:['write',1]});
+    if(day===28)it.push({id:'base',t:'Baseline: official TCF sample',min:60,n:'Untimed. Just notice which skill feels hardest.',links:[L.fei]});
+  }else if(ph===1){
+    it.push({id:'cards',t:'Flashcards',min:15,n:'New words + reviews.',links:[],tool:['cards']});
+    it.push({id:'gram',t:'Grammar',min:20,n:FOCUS[wk-1].split('.')[0]+'.',links:[L.kwiziq]});
+    it.push({id:'listen',t:'Listening',min:40,n:lis.n,links:lis.links});
+    const st=day%2?2:3;it.push({id:'speak',t:'Speaking Task '+st,min:20,n:'Two runs on the timer. Use the phrases.',links:[],tool:['speak',st]});
+    const wt=(day%3)+1;it.push({id:'write',t:'Writing Task '+wt,min:30,n:'Write, then copy it to Claude for a correction.',links:[L.claude],tool:['write',wt]});
+    if([1,3,5].includes(dow))it.push({id:'tutor',t:'Tutor session',min:45,n:'Speaking tasks + your last writing. Ask for a TCF score estimate.',links:[L.italki]});
+    if(dow===6)it.push({id:'timed',t:'Timed section: '+(wk%2?'listening':'reading'),min:wk%2?35:60,n:'Exam conditions. Score it.',links:[L.tv5tcf,L.fei]});
+  }else{
+    if(wk===12){
+      if(date.getTime()>=parse(S.test).getTime())it.push({id:'test',t:'Test day. Bonne chance (good luck).',min:167,n:'Eat, arrive early, bring your passport. Speak slowly and use your templates.',links:[]});
+      else{
+        it.push({id:'cards',t:'Flashcard reviews',min:15,n:'',links:[],tool:['cards']});
+        it.push({id:'phr',t:'Read the phrases out loud',min:15,n:'Templates, not new material.',links:[],tool:['phr']});
+        it.push({id:'speak',t:'One run of a speaking task',min:20,n:'Calm, clear, simple.',links:[],tool:['speak',(day%3)+1]});
+        it.push({id:'listen',t:'Easy listening',min:20,n:lis.n,links:lis.links});
+      }
+    }else{
+      it.push({id:'cards',t:'Flashcards',min:15,n:'',links:[],tool:['cards']});
+      const wt=(day%3)+1,st=((day+1)%3)+1;
+      it.push({id:'write',t:'Timed writing Task '+wt,min:30,n:'Hit the word count. Get it corrected.',links:[L.claude],tool:['write',wt]});
+      it.push({id:'speak',t:'Recorded speaking Task '+st,min:20,n:'Record, listen back once, redo.',links:[],tool:['speak',st]});
+      it.push({id:'listen',t:'Listening',min:30,n:lis.n,links:lis.links});
+      it.push({id:'weak',t:'Weakest-skill drill',min:30,n:'Whichever skill scored lowest on your last mock.',links:[L.tv5tcf,L.kwiziq]});
+      if([1,3,5].includes(dow))it.push({id:'tutor',t:'Tutor: mock speaking',min:45,n:'Full 12-minute speaking test, then feedback.',links:[L.italki]});
+      if(dow===0)it.push({id:'mock',t:'Full mock test',min:167,n:'All four sections, timed. Write down your 4 scores.',links:[L.fei,L.tv5tcf]});
+    }
+  }
+  return it;
+}
+const dayOf=d=>Math.floor((d-parse(S.start))/DAY)+1;
+const checks=k=>(S.checks[k]||[]).slice();
+function tick(id){const k=iso(today0()),c=checks(k);if(!c.includes(id)){c.push(id);S.checks[k]=c;save();render()}}
+
+function render(){
+  const now=today0(),day=dayOf(now),testD=parse(S.test);
+  const dC=Math.min(Math.max(day,1),84),wk=Math.ceil(dC/7),ph=wk<=4?0:wk<=8?1:2,toTest=Math.round((testD-now)/DAY);
+  $('meta').innerHTML=(day<1?'Starts <b>'+fmtDate(parse(S.start))+'</b>':'<b>Day '+day+'</b> of 84 · Week '+wk+' · '+PHASE[ph])+' · <b>'+Math.max(toTest,0)+'</b> days to test';
+  const s=$('strip');s.innerHTML='';
+  for(let w=0;w<12;w++){const g=document.createElement('div');g.className='wk';
+    for(let i=0;i<7;i++){const n=w*7+i+1,dt=new Date(parse(S.start).getTime()+(n-1)*DAY),k=iso(dt);
+      const req=itemsFor(n,dt).filter(x=>!x.opt),c=checks(k).filter(id=>req.some(x=>x.id===id));
+      const el=document.createElement('div');el.className='d';
+      if(c.length&&c.length>=req.length)el.classList.add('full');else if(c.length)el.classList.add('part');
+      if(k===iso(testD))el.classList.add('test');if(n===day)el.classList.add('today');
+      g.appendChild(el)}
+    s.appendChild(g)}
+  $('focus').innerHTML='<small>Week '+wk+' focus</small><p>'+esc(FOCUS[wk-1])+'</p>';
+  const k=iso(now),its=itemsFor(dC,now),done=checks(k);
+  $('todayH').textContent='Today · '+now.toLocaleDateString('en-CA',{weekday:'long',month:'short',day:'numeric'});
+  const list=$('list');list.innerHTML='';
+  if(day<1){list.innerHTML='<div class="item"><div class="body"><div class="t">Your plan starts '+fmtDate(parse(S.start))+'</div></div></div>';$('total').textContent='';updateBadge();return}
+  let mins=0,left=0;
+  its.forEach(x=>{
+    const on=done.includes(x.id);if(!x.opt){mins+=x.min;if(!on)left+=x.min}
+    const row=document.createElement('div');row.className='item'+(on?' checked':'');
+    const cb=document.createElement('input');cb.type='checkbox';cb.className='cb';cb.checked=on;cb.setAttribute('aria-label',x.t);
+    cb.onchange=()=>{let c=checks(k);c=cb.checked?[...new Set([...c,x.id])]:c.filter(i=>i!==x.id);S.checks[k]=c;save();render()};
+    const b=document.createElement('div');b.className='body';
+    const t=document.createElement('div');t.className='t';t.textContent=x.t;
+    const m=document.createElement('span');m.className='min';m.textContent=x.min+' min';t.appendChild(m);
+    if(x.opt){const o=document.createElement('span');o.className='opt';o.textContent='optional';t.appendChild(o)}
+    b.appendChild(t);
+    if(x.n){const n=document.createElement('div');n.className='n';n.textContent=x.n;b.appendChild(n)}
+    const ln=document.createElement('div');ln.className='links';
+    if(x.tool){const tb=document.createElement('button');tb.className='chip tool';
+      tb.textContent={cards:'Open flashcards',speak:'Open speaking timer',write:'Open writing pad',phr:'Open phrases'}[x.tool[0]];
+      tb.onclick=()=>openTool(x.tool[0],x.tool[1]);ln.appendChild(tb)}
+    x.links.forEach(l=>{const a=document.createElement('a');a.className='chip';a.href=l.url;a.target='_blank';a.rel='noopener';a.textContent=l.label+' ↗';ln.appendChild(a)});
+    if(ln.children.length)b.appendChild(ln);
+    row.append(cb,b);list.appendChild(row);
+  });
+  const h=v=>v>=60?Math.floor(v/60)+'h'+(v%60?' '+v%60+'m':''):v+'m';
+  const req=its.filter(x=>!x.opt);
+  $('total').innerHTML='<span>'+req.filter(x=>done.includes(x.id)).length+' / '+req.length+' done</span><span>'+(left?h(left)+' left of '+h(mins):'Done for today ✓')+'</span>';
+  updateBadge();
+}
+function openTool(t,task){
+  if(t==='cards'){go('cards');return}
+  go('practice');setPractice(t);
+  if(t==='speak'&&task)setS(task);
+  if(t==='write'&&task)setW(task);
+}
+
+/* ================= audio ================= */
+function say(t){
+  try{const clean=t.replace(/\(.*?\)/g,'').replace(/[…]/g,'').split('/')[0];
+    const u=new SpeechSynthesisUtterance(clean);u.lang='fr-FR';u.rate=.85;
+    const vs=speechSynthesis.getVoices();const v=vs.find(v=>v.lang==='fr-CA')||vs.find(v=>/^fr/i.test(v.lang));if(v)u.voice=v;
+    speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){toast('Audio is not available in this browser')}
+}
+try{speechSynthesis.getVoices()}catch(e){}
+
+/* ================= flashcards ================= */
+const DECK=`bonjour|hello
+bonsoir|good evening
+salut|hi / bye (informal)
+au revoir|goodbye
+merci|thank you
+merci beaucoup|thank you very much
+s'il vous plaît|please (formal)
+s'il te plaît|please (informal)
+de rien|you're welcome
+excusez-moi|excuse me
+pardon|sorry / pardon
+oui|yes
+non|no
+je|I
+tu|you (informal)
+il / elle|he / she
+nous|we
+vous|you (formal or plural)
+ils / elles|they
+je suis|I am
+tu es|you are
+il est / elle est|he is / she is
+nous sommes|we are
+vous êtes|you are (formal)
+ils sont|they are
+j'ai|I have
+tu as|you have
+il a / elle a|he has / she has
+nous avons|we have
+vous avez|you have (formal)
+ils ont|they have
+je m'appelle…|my name is…
+comment ça va ?|how are you?
+ça va bien|I'm doing well
+enchanté|nice to meet you
+j'habite à…|I live in…
+je travaille|I work
+un|one
+deux|two
+trois|three
+quatre|four
+cinq|five
+six|six
+sept|seven
+huit|eight
+neuf|nine
+dix|ten
+lundi|Monday
+mardi|Tuesday
+mercredi|Wednesday
+jeudi|Thursday
+vendredi|Friday
+samedi|Saturday
+dimanche|Sunday
+aujourd'hui|today
+demain|tomorrow
+hier|yesterday
+le matin|the morning
+le soir|the evening
+la semaine|the week
+qui ?|who?
+qu'est-ce que… ?|what…?
+où ?|where?
+quand ?|when?
+pourquoi ?|why?
+comment ?|how?
+combien ?|how much / how many?
+est-ce que… ?|(turns a sentence into a yes/no question)
+quelle heure est-il ?|what time is it?
+il est huit heures|it's eight o'clock
+et demie|half past
+onze|eleven
+douze|twelve
+quinze|fifteen
+vingt|twenty
+trente|thirty
+cinquante|fifty
+cent|one hundred
+mille|one thousand
+l'eau|water
+le café|coffee
+le pain|bread
+le repas|the meal
+le petit-déjeuner|breakfast
+le déjeuner|lunch
+le dîner|dinner
+la maison|the house / home
+l'appartement|the apartment
+la ville|the city
+le quartier|the neighbourhood
+la rue|the street
+le magasin|the store
+l'épicerie|the grocery store
+la gare|the train station
+l'aéroport|the airport
+le bureau|the office / the desk
+l'école|the school
+l'université|the university
+la voiture|the car
+le bus|the bus
+à pied|on foot
+ici|here
+là-bas|over there
+près de|near
+loin de|far from
+à gauche|to the left
+à droite|to the right
+tout droit|straight ahead
+je ne sais pas|I don't know
+je ne comprends pas|I don't understand
+pouvez-vous répéter ?|can you repeat?
+plus lentement, s'il vous plaît|more slowly, please
+ne… pas|not
+ne… jamais|never
+ne… plus|no longer / not anymore
+il y a|there is / there are
+c'est|it is / this is
+ce n'est pas|it isn't
+combien ça coûte ?|how much does it cost?
+aller|to go
+je vais|I go / I'm going
+faire|to do / to make
+je fais|I do / I make
+venir|to come
+prendre|to take
+manger|to eat
+boire|to drink
+parler|to speak
+aimer|to like / to love
+vouloir|to want
+je veux|I want
+je voudrais|I would like
+pouvoir|to be able to (can)
+je peux|I can
+devoir|to have to (must)
+je dois|I must / I have to
+savoir|to know (a fact)
+connaître|to know (a person or place)
+voir|to see
+dire|to say
+mettre|to put
+partir|to leave
+arriver|to arrive
+commencer|to start
+finir|to finish
+se lever|to get up
+se coucher|to go to bed
+travailler|to work
+étudier|to study
+apprendre|to learn
+acheter|to buy
+payer|to pay
+chercher|to look for
+trouver|to find
+attendre|to wait (for)
+lire|to read
+écrire|to write
+regarder|to watch
+écouter|to listen to
+le travail|work / the job
+le collègue|the colleague
+le patron|the boss
+la réunion|the meeting
+l'entreprise|the company
+le client|the client
+le projet|the project
+le salaire|the salary
+l'horaire|the schedule
+le rendez-vous|the appointment
+le week-end|the weekend
+les vacances|vacation
+le temps libre|free time
+la salle de sport|the gym
+j'ai mangé|I ate
+je suis allé|I went
+j'ai fait|I did / I made
+j'ai vu|I saw
+je vais manger|I'm going to eat
+grand / grande|big / tall
+petit / petite|small
+bon / bonne|good
+mauvais / mauvaise|bad
+nouveau / nouvelle|new
+vieux / vieille|old
+beau / belle|beautiful
+cher / chère|expensive / dear
+facile|easy
+difficile|difficult
+important|important
+intéressant|interesting
+ennuyeux|boring
+rapide|fast
+lent|slow
+content|happy
+fatigué|tired
+occupé|busy
+stressé|stressed
+à mon avis|in my opinion
+selon moi|in my view
+je pense que|I think that
+je crois que|I believe that
+je suis d'accord|I agree
+je ne suis pas d'accord|I disagree
+d'abord|first
+ensuite|then / next
+puis|then
+enfin|finally
+de plus|also / moreover
+par contre|on the other hand
+cependant|however
+mais|but
+parce que|because
+car|because / since
+donc|so / therefore
+c'est pourquoi|that's why
+par exemple|for example
+pour conclure|to conclude
+l'avantage|the advantage
+l'inconvénient|the disadvantage
+plus… que|more… than
+moins… que|less… than
+aussi… que|as… as
+le meilleur|the best
+il faut|you have to / it's necessary
+il est possible de|it is possible to
+on peut|we can / one can
+souvent|often
+toujours|always
+parfois|sometimes
+beaucoup|a lot
+un peu|a little
+trop|too much
+assez|enough
+déjà|already
+encore|still / again
+maintenant|now
+avant|before
+après|after`.split('\n').map(l=>{const[f,e]=l.split('|');return{f,e}});
+let fcQ=[],fcCur=null,fcShown=false,fcSeen=0,fcBuilt='';
+const addDays=(k,n)=>iso(new Date(parse(k).getTime()+n*DAY));
+function newPerDay(){const w=Math.ceil(Math.min(Math.max(dayOf(today0()),1),84)/7);return w<=2?10:w===12?0:15}
+function dueCount(){const k=iso(today0());const due=Object.keys(S.srs).filter(i=>S.srs[i].due<=k).length;
+  const intro=Object.keys(S.srs).length,nl=Math.max(0,Math.min(DECK.length-intro,newPerDay()-(S.newc[k]||0)));return due+nl}
+function updateBadge(){const n=dueCount(),b=$('cardBadge');if(n)b.setAttribute('data-n',n>99?'99+':n);else b.removeAttribute('data-n')}
+function fcStart(force){
+  const k=iso(today0());
+  if(!force&&fcBuilt===k&&(fcCur!=null||fcSeen))return fcDraw();
+  fcBuilt=k;fcSeen=0;
+  const due=Object.keys(S.srs).filter(i=>S.srs[i].due<=k).map(Number).sort(()=>Math.random()-.5);
+  const intro=Object.keys(S.srs).length,newLeft=Math.max(0,newPerDay()-(S.newc[k]||0));
+  const nw=[];for(let i=intro;i<Math.min(DECK.length,intro+newLeft);i++)nw.push(i);
+  fcQ=[...nw.slice(0,3),...due,...nw.slice(3)];fcCur=fcQ.length?fcQ.shift():null;fcShown=false;fcDraw();
+}
+function ivlFor(st,g){const v=st?st.ivl:0;return g===0?0:g===1?(v?Math.max(1,Math.round(v*1.2)):1):g===2?(v?Math.round(v*2.5):1):(v?Math.round(v*3.5):3)}
+const ivlTxt=d=>d===0?'again':d===1?'1 day':d<30?d+' days':Math.round(d/30)+' mo';
+function fcDraw(){
+  const s=S.srs,inQ=[...fcQ,...(fcCur!=null?[fcCur]:[])];
+  $('fcStats').textContent=inQ.filter(i=>!s[i]).length+' new · '+inQ.filter(i=>s[i]).length+' to review · '+Object.keys(s).length+' / '+DECK.length+' words learned';
+  const card=$('fcCard'),btns=$('fcBtns');
+  if(fcCur==null){
+    card.innerHTML='<div class="fc-done">'+(fcSeen?'Done for today ✓':'Nothing due right now ✓')+'</div><div class="sub">'+
+      (Object.keys(s).length>=DECK.length?'You\'ve learned the whole built-in deck. Ask Claude for the next word pack.':'Come back tomorrow. Words you know come back less and less often.')+'</div>';
+    card.onclick=null;btns.innerHTML='';updateBadge();
+    if(fcSeen)tick('cards');return;
+  }
+  const c=DECK[fcCur],st=s[fcCur];
+  card.innerHTML='<div class="sub">'+(st?'review':'new word')+' · tap to flip</div><div class="fc-front"></div><button class="say" id="fcSay" aria-label="Hear it">🔊</button><div class="fc-back"></div>';
+  card.querySelector('.fc-front').textContent=c.f;card.querySelector('.fc-back').textContent=fcShown?c.e:'';
+  $('fcSay').onclick=e=>{e.stopPropagation();say(c.f)};
+  card.onclick=()=>{if(!fcShown){fcShown=true;fcDraw()}};
+  if(!fcShown){btns.innerHTML='<div class="row"><button class="btn primary" id="fcShow">Show answer</button></div>';$('fcShow').onclick=()=>{fcShown=true;fcDraw()}}
+  else{btns.innerHTML='<div class="grades"></div>';const g=btns.firstChild;
+    ['Again','Hard','Good','Easy'].forEach((lab,i)=>{const b=document.createElement('button');b.className='btn'+(i===2?' primary':'');
+      b.innerHTML=lab+'<small>'+ivlTxt(ivlFor(st,i))+'</small>';b.onclick=()=>fcGrade(i);g.appendChild(b)})}
+  updateBadge();
+}
+function fcGrade(g){
+  if(fcCur==null||!fcShown)return;
+  const k=iso(today0());
+  if(!S.srs[fcCur])S.newc[k]=(S.newc[k]||0)+1;
+  const ivl=ivlFor(S.srs[fcCur],g);S.srs[fcCur]={ivl:ivl,due:addDays(k,ivl)};
+  if(g===0)fcQ.splice(Math.min(3,fcQ.length),0,fcCur);
+  fcSeen++;fcCur=fcQ.length?fcQ.shift():null;fcShown=false;save();fcDraw();
+}
+document.addEventListener('keydown',e=>{
+  if(!$('v-cards').classList.contains('on')||/TEXTAREA|INPUT/.test(document.activeElement.tagName))return;
+  if(e.key===' '){e.preventDefault();if(!fcShown&&fcCur!=null){fcShown=true;fcDraw()}}
+  else if(['1','2','3','4'].includes(e.key))fcGrade(+e.key-1);
+  else if(e.key==='s'&&fcCur!=null)say(DECK[fcCur].f);
+});
+
+/* ================= practice ================= */
+function setPractice(p){
+  document.querySelectorAll('#pSeg button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  ['speak','write','phr'].forEach(x=>$('p-'+x).hidden=x!==p);
+}
+document.querySelectorAll('#pSeg button').forEach(b=>b.onclick=()=>setPractice(b.dataset.p));
+function Timer(el,bar,btn,getSecs){
+  let t=0,id=null;
+  const draw=()=>{const s=getSecs(),r=s-t,a=Math.abs(r);el.textContent=(r<0?'+':'')+Math.floor(a/60)+':'+String(a%60).padStart(2,'0');el.classList.toggle('over',r<0);bar.style.width=Math.min(100,t/s*100)+'%'};
+  const stop=()=>{clearInterval(id);id=null;btn.textContent='Start'};
+  btn.onclick=()=>{if(id){stop();btn.textContent='Resume';return}btn.textContent='Pause';id=setInterval(()=>{t++;draw()},1000)};
+  return{reset(){stop();t=0;draw()}};
+}
+const SP={
+  1:{secs:120,label:'2 min · no preparation · the examiner asks about you',p:[
+    ['Présentez-vous : votre nom, votre ville, votre travail.','Introduce yourself: your name, your city, your job.'],
+    ['Parlez de votre travail. Qu\'est-ce que vous aimez dans votre travail ?','Talk about your job. What do you like about it?'],
+    ['Qu\'est-ce que vous faites pendant le week-end ?','What do you do on the weekend?'],
+    ['Parlez de votre ville. Qu\'est-ce qu\'on peut faire dans votre ville ?','Talk about your city. What can you do there?'],
+    ['Pourquoi apprenez-vous le français ?','Why are you learning French?'],
+    ['Parlez d\'un voyage que vous avez fait.','Talk about a trip you took.'],
+    ['Quels sont vos projets pour l\'année prochaine ?','What are your plans for next year?']]},
+  2:{secs:330,label:'5 min 30 · 2 min prep · YOU ask the examiner questions',p:[
+    ['Vous voulez louer un appartement. Vous posez des questions au propriétaire (prix, quartier, charges, date…).','You want to rent an apartment. Ask the landlord questions (price, neighbourhood, utilities, move-in date…).'],
+    ['Vous voulez vous inscrire dans une salle de sport. Vous posez des questions sur les horaires, les prix et les cours.','You want to join a gym. Ask about opening hours, prices and classes.'],
+    ['Vous organisez un anniversaire dans un restaurant. Vous posez des questions au gérant.','You are organising a birthday party at a restaurant. Ask the manager questions.'],
+    ['Vous voulez suivre un cours de cuisine. Vous posez des questions à l\'organisateur.','You want to take a cooking class. Ask the organiser questions.'],
+    ['Vous cherchez un voyage organisé à Québec. Vous posez des questions à l\'agent de voyage.','You are looking for a guided trip to Quebec City. Ask the travel agent questions.'],
+    ['Votre ami(e) part en vacances et vous allez garder son chat. Vous lui posez des questions.','Your friend is going on vacation and you will look after their cat. Ask them questions.']]},
+  3:{secs:270,label:'4 min 30 · no preparation · give and defend your opinion',p:[
+    ['Selon vous, le télétravail est-il une bonne chose ?','In your opinion, is working from home a good thing?'],
+    ['Les réseaux sociaux rapprochent-ils ou éloignent-ils les gens ?','Do social networks bring people closer or push them apart?'],
+    ['Faut-il apprendre une deuxième langue à l\'école primaire ?','Should children learn a second language in elementary school?'],
+    ['Vaut-il mieux vivre en ville ou à la campagne ?','Is it better to live in the city or the countryside?'],
+    ['Faut-il interdire les voitures dans le centre-ville ?','Should cars be banned from downtown?'],
+    ['L\'intelligence artificielle va-t-elle remplacer beaucoup d\'emplois ?','Will artificial intelligence replace many jobs?'],
+    ['Est-ce important de voyager quand on est jeune ?','Is it important to travel when you are young?']]}
+};
+let sT=1,sI=0;
+const sTimer=Timer($('sTimer'),$('sBar'),$('sStart'),()=>SP[sT].secs);
+function setS(t,newP){sT=+t;if(newP!==false)sI=Math.floor(Math.random()*SP[sT].p.length);
+  document.querySelectorAll('#sTask button').forEach(b=>b.classList.toggle('on',+b.dataset.t===sT));
+  const[f,e]=SP[sT].p[sI];$('sPrompt').innerHTML=fr(f,e);$('sSub').textContent=SP[sT].label;sTimer.reset()}
+document.querySelectorAll('#sTask button').forEach(b=>b.onclick=()=>setS(b.dataset.t));
+$('sNew').onclick=()=>{let n;do{n=Math.floor(Math.random()*SP[sT].p.length)}while(n===sI);sI=n;setS(sT,false)};
+$('sReset').onclick=()=>sTimer.reset();
+$('sSay').onclick=()=>say(SP[sT].p[sI][0]);
+$('sCopy').onclick=()=>copy(
+`Tu es examinateur du TCF Canada, expression orale, tâche ${sT}. Sujet : « ${SP[sT].p[sI][0]} »
+${sT===2?'Joue le rôle de la personne à qui je pose des questions. Réponds brièvement : c\'est moi qui dois poser les questions.':'Pose-moi des questions comme dans le vrai test.'}
+Parle lentement, en français simple (niveau débutant à B1). Si je suis bloqué, aide-moi avec un mot.
+À la fin, en anglais : 1) une estimation NCLC, 2) mes 3 erreurs les plus importantes avec la correction, 3) 2 phrases utiles pour la prochaine fois.`,'Copied. Paste it into Claude voice mode.');
+
+const WR={
+  1:{min:60,max:120,secs:600,label:'60–120 words · a message · aim for ~10 min',p:[
+    ['Vous invitez un ami à passer un week-end à Montréal. Écrivez-lui un message : date, transport, activités.','Invite a friend for a weekend in Montreal. Write them a message: date, transport, activities.'],
+    ['Votre voisin fait du bruit le soir. Écrivez-lui un message poli pour expliquer le problème et proposer une solution.','Your neighbour is noisy at night. Write a polite message explaining the problem and suggesting a solution.'],
+    ['Vous devez changer la date d\'une réunion avec un collègue. Écrivez-lui un message pour expliquer et proposer une autre date.','You need to move a meeting with a colleague. Write to explain and suggest another date.'],
+    ['Vous avez perdu votre sac dans un café. Écrivez un message au café pour le décrire et demander de l\'aide.','You lost your bag in a café. Write to the café to describe it and ask for help.']]},
+  2:{min:120,max:150,secs:1200,label:'120–150 words · tell an experience · ~20 min',p:[
+    ['Vous avez participé à un festival. Racontez votre expérience pour le blog d\'un journal local.','You went to a festival. Tell the story of your experience for a local newspaper\'s blog.'],
+    ['Racontez votre premier jour dans un nouveau travail : ce qui s\'est passé et ce que vous avez ressenti.','Describe your first day at a new job: what happened and how you felt.'],
+    ['Racontez un voyage qui vous a marqué. Donnez votre avis sur ce voyage.','Describe a trip that stayed with you. Give your opinion of it.'],
+    ['Vous avez essayé une nouvelle activité sportive. Racontez cette expérience sur un forum.','You tried a new sport. Describe the experience on a forum.']]},
+  3:{min:120,max:180,secs:1800,label:'120–180 words · summarise both views (40–60), then your opinion (80–120) · ~30 min',p:[
+    ['Document 1 : « Le télétravail améliore la qualité de vie : moins de transport, plus de temps en famille. » Document 2 : « Le télétravail isole les employés et rend le travail en équipe difficile. »','Doc 1: "Working from home improves quality of life: less commuting, more family time." Doc 2: "Working from home isolates employees and makes teamwork hard."'],
+    ['Document 1 : « Les écrans à l\'école aident les élèves à apprendre plus vite. » Document 2 : « Les écrans fatiguent les élèves et les empêchent de se concentrer. »','Doc 1: "Screens at school help students learn faster." Doc 2: "Screens tire students out and stop them from concentrating."'],
+    ['Document 1 : « Vivre en ville, c\'est avoir tout à proximité : travail, culture, services. » Document 2 : « La ville est chère, bruyante et stressante ; la campagne est plus saine. »','Doc 1: "Living in the city means everything is close: work, culture, services." Doc 2: "The city is expensive, noisy and stressful; the countryside is healthier."'],
+    ['Document 1 : « Les voyages en avion ouvrent l\'esprit et créent des emplois. » Document 2 : « L\'avion pollue beaucoup ; il faut voyager moins et plus près. »','Doc 1: "Air travel opens minds and creates jobs." Doc 2: "Planes pollute a lot; we should travel less and closer to home."']]}
+};
+let wT=1,wI=0;
+const wTimer=Timer($('wTimer'),$('wBar'),$('wStart'),()=>WR[wT].secs);
+function setW(t,newP){wT=+t;if(newP!==false)wI=Math.floor(Math.random()*WR[wT].p.length);
+  document.querySelectorAll('#wTask button').forEach(b=>b.classList.toggle('on',+b.dataset.t===wT));
+  const[f,e]=WR[wT].p[wI];$('wPrompt').innerHTML=fr(f,e);$('wSub').textContent=WR[wT].label;
+  $('wText').value=(S.drafts&&S.drafts[wT])||'';wc();wTimer.reset()}
+function wc(){const n=($('wText').value.trim().match(/\S+/g)||[]).length,r=WR[wT];const el=$('wc');el.textContent=n+' words · target '+r.min+'–'+r.max;el.className='wc '+(n===0?'':n<r.min||n>r.max?'bad':'ok')}
+$('wText').addEventListener('input',()=>{S.drafts=S.drafts||{};S.drafts[wT]=$('wText').value;wc();save()});
+document.querySelectorAll('#wTask button').forEach(b=>b.onclick=()=>setW(b.dataset.t));
+$('wNew').onclick=()=>{let n;do{n=Math.floor(Math.random()*WR[wT].p.length)}while(n===wI);wI=n;setW(wT,false)};
+$('wReset').onclick=()=>wTimer.reset();
+$('wCopy').onclick=()=>{const txt=$('wText').value.trim();if(!txt){toast('Write something first');return}
+  copy(`Corrige ce texte pour le TCF Canada, expression écrite, tâche ${wT} (${WR[wT].min}–${WR[wT].max} mots).
+Sujet : ${WR[wT].p[wI][0]}
+
+Mon texte :
+${txt}
+
+Réponds en anglais avec : 1) une estimation NCLC, 2) chaque erreur avec la correction et une explication courte, 3) une version corrigée qui reste simple (niveau B1 maximum), 4) un point à travailler cette semaine.`,'Copied. Paste it into Claude.')};
+
+const PH=[
+ ['Give your opinion',[['À mon avis, …','In my opinion, …'],['Selon moi, …','In my view, …'],['Je pense que …','I think that …'],['Je suis d\'accord avec …','I agree with …'],['Je ne suis pas d\'accord avec …','I disagree with …']]],
+ ['Structure',[['D\'abord, …','First, …'],['Ensuite, …','Then / next, …'],['De plus, …','Also / moreover, …'],['Enfin, …','Finally, …'],['Pour conclure, …','To conclude, …']]],
+ ['Contrast',[['Par contre, …','On the other hand, …'],['Cependant, …','However, …'],['Pourtant, …','And yet, …'],['D\'un côté… de l\'autre côté…','On one hand… on the other hand…'],['Même si …','Even if …']]],
+ ['Cause / result',[['parce que …','because …'],['car …','because / since …'],['donc …','so / therefore …'],['c\'est pourquoi …','that\'s why …'],['grâce à …','thanks to …']]],
+ ['Give examples',[['Par exemple, …','For example, …'],['Comme …','Like / as …'],['Dans mon cas, …','In my case, …'],['Je me souviens que …','I remember that …']]],
+ ['Task 2 questions',[['Est-ce que je peux … ?','Can I … ?'],['Combien coûte … ?','How much does … cost?'],['À quelle heure … ?','At what time … ?'],['Qu\'est-ce qui est inclus ?','What is included?'],['Est-ce qu\'il faut réserver ?','Do I need to book?'],['Il y a une réduction pour … ?','Is there a discount for … ?'],['Est-ce qu\'il est possible de … ?','Is it possible to … ?']]],
+ ['Messages',[['Salut ! / Bonjour Madame,','Hi! / Hello Madam,'],['Je t\'écris pour …','I\'m writing to you to …'],['Est-ce que tu es disponible … ?','Are you available … ?'],['Merci d\'avance.','Thanks in advance.'],['À bientôt ! / Cordialement,','See you soon! / Best regards,']]],
+ ['Buy time (speaking)',[['C\'est une bonne question.','That\'s a good question.'],['Je n\'ai jamais pensé à ça, mais …','I\'ve never thought about that, but …'],['Pouvez-vous répéter, s\'il vous plaît ?','Can you repeat that, please?'],['Comment dire … ?','How do I say … ?'],['Je ne connais pas le mot.','I don\'t know the word.']]]
+];
+function introPhr(){const n=S.prof.name||'…',c=S.prof.city||'…';return['Task 1 self-intro',[
+  ['Je m\'appelle '+n+'.','My name is '+n+'.'],['J\'habite à '+c+'.','I live in '+c+'.'],
+  ['Je travaille comme …','I work as a/an … (ask Claude for your job title in French)'],['Pendant mon temps libre, j\'aime …','In my free time, I like …'],
+  ['J\'apprends le français pour …','I\'m learning French to/for …'],['Dans le futur, je voudrais …','In the future, I would like …']]]}
+function buildPhr(){const phr=$('phr');phr.innerHTML='';
+  [introPhr(),...PH].forEach(([h,arr])=>{const g=document.createElement('div');g.className='grp';
+    const t=document.createElement('h3');t.textContent=h;g.appendChild(t);
+    arr.forEach(([f,e])=>{const b=document.createElement('button');b.innerHTML=fr(f,e);
+      b.onclick=()=>{const sp=b.querySelector('.fr');
+        if(hoverless()&&!S.en&&!sp.classList.contains('tap')){document.querySelectorAll('.fr.tap').forEach(x=>x.classList.remove('tap'));sp.classList.add('tap');return}
+        copy(f,'Copied: '+f)};
+      g.appendChild(b)});
+    phr.appendChild(g)})}
+
+/* ================= boot ================= */
+function applyAll(){applyEn();fillSettings();buildPhr();render();fcBuilt='';fcCur=null;fcQ=[];if($('v-cards').classList.contains('on'))fcStart();setW(wT,false)}
+setS(1);setW(1);applyEn();fillSettings();buildPhr();render();route();setSync('local');initSync();
+let lastK=iso(new Date());
+setInterval(()=>{const k=iso(new Date());if(k!==lastK){lastK=k;render();fcStart(true)}},60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();if($('v-cards').classList.contains('on'))fcStart()}});
+})();
+</script>
+</body>
+</html>
